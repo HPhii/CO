@@ -1,0 +1,95 @@
+/* Main Styles for SAP CO Deep Dive */
+
+/* Font and Base Styles */
+body {
+  font-family: "Be Vietnam Pro", sans-serif;
+  background-color: #f8f9fa;
+  color: #212529;
+}
+
+/* Navigation Styles */
+.nav-link {
+  transition: color 0.3s, border-color 0.3s;
+  border-bottom: 3px solid transparent;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: #0a4d68;
+  border-bottom-color: #0a4d68;
+}
+
+/* Section Styles */
+.section-title {
+  color: #0a4d68;
+}
+
+.section-subtitle {
+  color: #495057;
+}
+
+/* Card Styles */
+.card {
+  transition: transform 0.3s, box-shadow 0.3s;
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.card-content {
+  flex-grow: 1;
+}
+
+/* Tab Button Styles */
+.tab-button.active {
+  background-color: #0a4d68;
+  color: white;
+}
+
+/* Chart Container */
+.chart-container {
+  position: relative;
+  width: 100%;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  height: 350px;
+  max-height: 400px;
+}
+
+/* View Counter Animation */
+#view-counter {
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+/* Journal Table Styles */
+.journal-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.journal-table th,
+.journal-table td {
+  border: 1px solid #e2e8f0;
+  padding: 0.75rem;
+  text-align: left;
+}
+
+.journal-table th {
+  background-color: #f1f5f9;
+  font-weight: 600;
+}
+
+.journal-table .debit {
+  color: #16a34a; /* green-600 */
+}
+
+.journal-table .credit {
+  color: #dc2626; /* red-600 */
+}

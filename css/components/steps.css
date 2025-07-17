@@ -1,0 +1,51 @@
+/* Product Costing Steps Component Styles */
+
+.step-item {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 120px;
+  white-space: nowrap;
+}
+
+.step-item.active {
+  background-color: #0a4d68;
+  color: white;
+  transform: scale(1.05);
+}
+
+.step-item.active .step-number {
+  background-color: white;
+  color: #0a4d68;
+}
+
+.step-connector {
+  flex-shrink: 0;
+  width: 24px;
+  height: 2px;
+  background-color: #dee2e6;
+  margin: 0 4px;
+}
+
+.steps-scroll-container {
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e0 #f7fafc;
+}
+
+.steps-scroll-container::-webkit-scrollbar {
+  height: 6px;
+}
+
+.steps-scroll-container::-webkit-scrollbar-track {
+  background: #f7fafc;
+  border-radius: 3px;
+}
+
+.steps-scroll-container::-webkit-scrollbar-thumb {
+  background: #cbd5e0;
+  border-radius: 3px;
+}
+
+.steps-scroll-container::-webkit-scrollbar-thumb:hover {
+  background: #a0aec0;
+}

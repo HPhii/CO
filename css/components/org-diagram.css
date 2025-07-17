@@ -1,0 +1,29 @@
+/* Organization Interactive Diagram Styles */
+
+.org-node-interactive {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-width: 2px;
+}
+
+.org-node-interactive.active {
+  border-color: #f2be22;
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(242, 190, 34, 0.5);
+}
+
+.org-node-interactive.dimmed {
+  opacity: 0.3;
+  filter: grayscale(80%);
+}
+
+/* New styles for Profit Center and Cost Center */
+.org-node-pc {
+  border-color: #10b981; /* emerald-500 */
+  background-color: #ecfdf5; /* emerald-50 */
+}
+
+.org-node-cc {
+  border-color: #f43f5e; /* rose-500 */
+  background-color: #fff1f2; /* rose-50 */
+}

@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Công phá CO</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/components/flip-card.css" />
+    <link rel="stylesheet" href="css/components/org-diagram.css" />
+    <link rel="stylesheet" href="css/components/steps.css" />
+  </head>
+  <body class="antialiased">
+    <header class="bg-white/90 backdrop-blur-lg sticky top-0 z-50 shadow-md">
+      <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-20">
+          <div class="flex-shrink-0">
+            <h1 class="text-3xl font-extrabold section-title">
+              SAP CO (Controlling)
+            </h1>
+            <div class="flex items-center space-x-4 mt-1">
+              <div class="text-xs text-gray-600">
+                <span class="inline-flex items-center">
+                  👁️
+                  <span id="view-counter" class="ml-1 font-semibold">0</span>
+                  lượt xem
+                </span>
+              </div>
+              <div class="text-xs text-gray-600">
+                <span class="inline-flex items-center">
+                  📅 Cập nhật:
+                  <span id="last-updated" class="ml-1 font-semibold"
+                    >10/07/2025</span
+                  >
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="hidden lg:block">
+            <div class="ml-10 flex items-baseline space-x-6">
+              <a
+                href="#overview"
+                class="nav-link px-3 py-2 text-base font-semibold"
+                >Overview</a
+              >
+              <a
+                href="#submodules"
+                class="nav-link px-3 py-2 text-base font-semibold"
+                >Submodules</a
+              >
+              <a
+                href="#org-structure"
+                class="nav-link px-3 py-2 text-base font-semibold"
+                >Organization Structure</a
+              >
+              <a
+                href="#master-data"
+                class="nav-link px-3 py-2 text-base font-semibold"
+                >Master data</a
+              >
+              <a
+                href="#processes"
+                class="nav-link px-3 py-2 text-base font-semibold"
+                >Cost Flow</a
+              >
+              <a
+                href="#product-costing"
+                class="nav-link px-3 py-2 text-base font-semibold"
+                >Product Costing</a
+              >
+              <a
+                href="#s4hana"
+                class="nav-link px-3 py-2 text-base font-semibold"
+                >S/4HANA</a
+              >
+            </div>
+          </div>
+          <div class="lg:hidden">
+            <button
+              id="mobile-menu-button"
+              class="inline-flex items-center justify-center p-2 rounded-md text-gray-500 hover:text-white hover:bg-[#0A4D68] focus:outline-none"
+            >
+              <span class="sr-only">Open main menu</span>
+              <span class="text-2xl">☰</span>
+            </button>
+          </div>
+        </div>
+        <div id="mobile-menu" class="lg:hidden hidden pb-4">
+          <a
+            href="#overview"
+            class="nav-link block px-3 py-2 rounded-md text-base font-medium"
+            >Overview</a
+          >
+          <a
+            href="#submodules"
+            class="nav-link block px-3 py-2 rounded-md text-base font-medium"
+            >Submodules</a
+          >
+          <a
+            href="#org-structure"
+            class="nav-link block px-3 py-2 rounded-md text-base font-medium"
+            >Organization Structure</a
+          >
+          <a
+            href="#master-data"
+            class="nav-link block px-3 py-2 rounded-md text-base font-medium"
+            >Master data</a
+          >
+          <a
+            href="#processes"
+            class="nav-link block px-3 py-2 rounded-md text-base font-medium"
+            >Processes</a
+          >
+          <a
+            href="#product-costing"
+            class="nav-link block px-3 py-2 rounded-md text-base font-medium"
+            >Product Costing</a
+          >
+          <a
+            href="#s4hana"
+            class="nav-link block px-3 py-2 rounded-md text-base font-medium"
+            >S/4HANA</a
+          >
+        </div>
+      </nav>
+    </header>
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+      <section id="overview" class="scroll-mt-24">
+        <h2 class="text-4xl font-extrabold text-center mb-4 section-title">
+          CO: Bộ Não Điều Khiển Doanh Nghiệp
+        </h2>
+        <p class="text-center text-xl section-subtitle max-w-4xl mx-auto mb-12">
+          Nếu FI nhìn về quá khứ để báo cáo những gì
+          <span class="font-bold text-blue-600">đã</span> xảy ra; CO nhìn về
+          tương lai để tác động đến những gì
+          <span class="font-bold text-green-600">sẽ</span> xảy ra.
+        </p>
+        <div class="grid md:grid-cols-2 gap-8 items-stretch">
+          <div
+            class="card bg-white p-8 rounded-xl shadow-lg border-l-8 border-blue-300"
+          >
+            <h3 class="text-2xl font-bold mb-4 text-center">
+              🚢 Kế toán Tài chính (FI) - để thống kê tài chính
+            </h3>
+            <p class="mb-4">
+              Financial Accounting - FI là cuốn nhật ký hàng hải chính thức của
+              một con tàu—ghi chép tỉ mỉ mọi sự kiện để báo cáo cho các cơ quan
+              chức năng (chính phủ, cơ quan thuế, nhà đầu tư).
+              <br />
+              <br />
+              Đây đơn giản là một report thống kê số liệu, không đưa ra bất kì
+              guideline hay phân tích gì về chỉ số, chỉ tập trung vào số liệu
+            </p>
+            <ul class="space-y-2 text-gray-700">
+              <li class="flex items-start">
+                <span class="font-bold text-blue-500 mr-2 mt-1">✓</span
+                ><span>Mục tiêu: Báo cáo bên ngoài.</span>
+              </li>
+              <li class="flex items-start">
+                <span class="font-bold text-blue-500 mr-2 mt-1">✓</span
+                ><span>Đối tượng: Cổ đông, Chính phủ.</span>
+              </li>
+              <li class="flex items-start">
+                <span class="font-bold text-blue-500 mr-2 mt-1">✓</span
+                ><span
+                  >Quy tắc: Tuân thủ nghiêm ngặt chuẩn mực kế toán (VAS,
+                  IFRS).</span
+                >
+              </li>
+              <li class="flex items-start">
+                <span class="font-bold text-blue-500 mr-2 mt-1">✓</span
+                ><span>Góc nhìn: Toàn bộ công ty (pháp nhân).</span>
+              </li>
+            </ul>
+          </div>
+          <div
+            class="card bg-white p-8 rounded-xl shadow-lg border-l-8 border-[#0A4D68]"
+          >
+            <h3 class="text-2xl font-bold mb-4 text-center">
+              🧭 Kế toán Quản trị (CO) - phân tích giúp đưa ra quyết định quản
+              trị
+            </h3>
+            <p class="mb-4">
+              Managerial Accounting là hệ thống định vị tiên tiến của con tàu
+              đó. Nó cho thuyền trưởng (ban giám đốc) biết tốc độ hiện tại, mức
+              tiêu thụ nhiên liệu, hướng đi và thời gian dự kiến đến nơi. Nó
+              giúp thuyền trưởng quyết định nên tăng tốc, đổi hướng để tránh
+              bão, hay tiết kiệm nhiên liệu.
+              <br />
+              <br />
+              <span class="font-bold text-green-600">CO</span> không chỉ là báo
+              cáo, mà còn là công cụ hỗ trợ ra quyết định. Chủ yếu tập trung vào
+              các ratio và dùng để cho các anh lớn coi
+            </p>
+            <ul class="space-y-2 text-gray-700">
+              <li class="flex items-start">
+                <span class="font-bold text-[#0A4D68] mr-2 mt-1">✓</span
+                ><span>Mục tiêu: Báo cáo nội bộ, ra quyết định.</span>
+              </li>
+              <li class="flex items-start">
+                <span class="font-bold text-[#0A4D68] mr-2 mt-1">✓</span
+                ><span>Đối tượng: Ban giám đốc, quản lý các cấp.</span>
+              </li>
+              <li class="flex items-start">
+                <span class="font-bold text-[#0A4D68] mr-2 mt-1">✓</span
+                ><span>Quy tắc: Linh hoạt, tùy theo nhu cầu quản trị.</span>
+              </li>
+              <li class="flex items-start">
+                <span class="font-bold text-[#0A4D68] mr-2 mt-1">✓</span
+                ><span
+                  >Góc nhìn: Đa chiều (theo phòng ban, sản phẩm, dự
+                  án...).</span
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <hr class="my-20 border-t border-gray-200" />
+
+      <!-- =================================================================== -->
+      <!-- SECTION: SUBMODULES (RESTORED)                                    -->
+      <!-- =================================================================== -->
+      <section id="submodules" class="scroll-mt-24">
+        <h2 class="text-4xl font-extrabold text-center mb-4 section-title">
+          Khám phá Vũ trụ CO
+        </h2>
+        <p class="text-center text-xl section-subtitle max-w-4xl mx-auto mb-12">
+          CO không phải là một khối thống nhất, mà là một tập hợp các phân hệ
+          chuyên biệt, mỗi phân hệ giải quyết một bài toán quản trị khác nhau.
+          Hãy lật các thẻ bài để tìm hiểu nhé!
+        </p>
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          <div class="flip-card h-48">
+            <div class="flip-card-inner rounded-lg shadow-md">
+              <div
+                class="flip-card-front bg-gradient-to-br from-sky-500 to-indigo-500 text-white"
+              >
+                <h3 class="text-xl font-bold">CCA</h3>
+                <p>Cost Center Accounting</p>
+              </div>
+              <div class="flip-card-back bg-white border-2 border-indigo-500">
+                <p class="text-sm text-center">
+                  Quản lý chi phí theo từng phòng ban, bộ phận. Trả lời câu hỏi:
+                  "Phòng ban nào đang tiêu bao nhiêu tiền?".
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="flip-card h-48">
+            <div class="flip-card-inner rounded-lg shadow-md">
+              <div
+                class="flip-card-front bg-gradient-to-br from-teal-500 to-cyan-500 text-white"
+              >
+                <h3 class="text-xl font-bold">PCC</h3>
+                <p>Product Cost Controlling</p>
+              </div>
+              <div class="flip-card-back bg-white border-2 border-cyan-500">
+                <p class="text-sm text-center">
+                  Tính giá thành sản phẩm, dịch vụ. Trả lời câu hỏi: "Để làm ra
+                  một sản phẩm tốn bao nhiêu chi phí?".
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="flip-card h-48">
+            <div class="flip-card-inner rounded-lg shadow-md">
+              <div
+                class="flip-card-front bg-gradient-to-br from-amber-500 to-orange-500 text-white"
+              >
+                <h3 class="text-xl font-bold">OPA</h3>
+                <p>Internal Orders</p>
+              </div>
+              <div class="flip-card-back bg-white border-2 border-orange-500">
+                <p class="text-sm text-center">
+                  Theo dõi chi phí cho các sự kiện, dự án ngắn hạn. Trả lời câu
+                  hỏi: "Chiến dịch marketing này tốn bao nhiêu?".
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="flip-card h-48">
+            <div class="flip-card-inner rounded-lg shadow-md">
+              <div
+                class="flip-card-front bg-gradient-to-br from-emerald-500 to-green-500 text-white"
+              >
+                <h3 class="text-xl font-bold">CO-PA</h3>
+                <p>Profitability Analysis</p>
+              </div>
+              <div class="flip-card-back bg-white border-2 border-green-500">
+                <p class="text-sm text-center">
+                  Phân tích lợi nhuận đa chiều (theo khách hàng, sản phẩm, khu
+                  vực...). Trả lời câu hỏi: "Khách hàng nào mang lại lợi nhuận
+                  cao nhất?".
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <hr class="my-20 border-t border-gray-200" />
+
+      <!-- =================================================================== -->
+      <!-- SECTION: ORG STRUCTURE (RESTORED)                                 -->
+      <!-- =================================================================== -->
+      <section id="org-structure" class="scroll-mt-24">
+        <h2 class="text-4xl font-extrabold text-center mb-4 section-title">
+          Bản thiết kế Quyền lực
+        </h2>
+        <p class="text-center text-xl section-subtitle max-w-4xl mx-auto mb-12">
+          Cấu trúc tổ chức quyết định cách dữ liệu được thu thập và báo cáo. Một
+          thiết kế tốt sẽ cung cấp cái nhìn sâu sắc, trong khi một thiết kế tồi
+          sẽ gây ra sự hỗn loạn. Hãy nhấp vào từng khối để xem chúng liên kết
+          với nhau.
+        </p>
+        <div class="grid lg:grid-cols-3 gap-8 items-start">
+          <div class="lg:col-span-2 bg-white p-6 rounded-xl shadow-lg">
+            <div id="org-diagram-interactive" class="space-y-4 text-center">
+              <div
+                data-id="op"
+                class="org-node-interactive border-amber-500 bg-amber-50 p-4 rounded-lg inline-block relative"
+              >
+                <span class="font-bold text-lg">Operating Concern (GL00)</span>
+              </div>
+              <div class="flex justify-center">
+                <div class="h-8 w-0.5 bg-gray-300"></div>
+              </div>
+
+              <div class="flex justify-around">
+                <div class="flex flex-col items-center">
+                  <div
+                    data-id="ca"
+                    class="org-node-interactive border-[#0A4D68] bg-sky-50 p-4 rounded-lg inline-block relative"
+                  >
+                    <span class="font-bold">Controlling Area (NA00)</span>
+                  </div>
+                  <div class="flex justify-center">
+                    <div class="h-8 w-0.5 bg-gray-300"></div>
+                  </div>
+                  <div class="flex justify-center gap-8 mt-2">
+                    <div class="flex flex-col items-center">
+                      <div
+                        data-id="cc1"
+                        class="org-node-interactive border-gray-400 bg-gray-50 p-4 rounded-lg relative"
+                      >
+                        <span>Company Code (US00)</span>
+                      </div>
+                      <div class="flex justify-center">
+                        <div class="h-8 w-0.5 bg-gray-300"></div>
+                      </div>
+                      <div class="flex gap-4 mt-2">
+                        <div
+                          data-id="pc1"
+                          class="org-node-interactive org-node-pc border-emerald-500 bg-emerald-50 p-3 rounded-lg relative"
+                        >
+                          <span class="text-sm"
+                            >Profit Center (PC_US_BIKES)</span
+                          >
+                        </div>
+                        <div
+                          data-id="ccen1"
+                          class="org-node-interactive org-node-cc border-rose-500 bg-rose-50 p-3 rounded-lg relative"
+                        >
+                          <span class="text-sm">Cost Center (CC_US_IT)</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex flex-col items-center">
+                  <div
+                    data-id="ca2"
+                    class="org-node-interactive border-[#0A4D68] bg-sky-50 p-4 rounded-lg inline-block relative"
+                  >
+                    <span class="font-bold">Controlling Area (EU00)</span>
+                  </div>
+                  <div class="flex justify-center">
+                    <div class="h-8 w-0.5 bg-gray-300"></div>
+                  </div>
+                  <div class="flex justify-center gap-8 mt-2">
+                    <div class="flex flex-col items-center">
+                      <div
+                        data-id="cc3"
+                        class="org-node-interactive border-gray-400 bg-gray-50 p-4 rounded-lg relative"
+                      >
+                        <span>Company Code (DE00)</span>
+                      </div>
+                      <div class="flex justify-center">
+                        <div class="h-8 w-0.5 bg-gray-300"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            id="org-info-card"
+            class="bg-gray-50 p-6 rounded-xl shadow-inner min-h-[300px] sticky top-24"
+          >
+            <h3
+              id="org-info-title"
+              class="text-xl font-bold mb-2 text-[#0A4D68]"
+            >
+              Hãy chọn một khối
+            </h3>
+            <p id="org-info-desc" class="text-gray-700">
+              Nhấp vào một khối trong sơ đồ để xem giải thích chi tiết và mối
+              quan hệ của nó.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <hr class="my-20 border-t border-gray-200" />
+
+      <!-- =================================================================== -->
+      <!-- SECTION: MASTER DATA (REBUILT BASED ON USER OUTLINE)              -->
+      <!-- =================================================================== -->
+      <section id="master-data" class="scroll-mt-24">
+        <h2 class="text-4xl font-extrabold text-center mb-4 section-title">
+          Nền tảng của CO: Master data
+        </h2>
+        <p class="text-center text-xl section-subtitle max-w-4xl mx-auto mb-12">
+          Master Data là bộ khung xương của hệ thống CO, là những đối tượng ổn
+          định, nơi mọi chi phí và doanh thu được ghi nhận, phân bổ và phân
+          tích. Hiểu rõ chúng là chìa khóa để làm chủ CO.
+        </p>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div
+            class="card bg-white p-6 rounded-xl shadow-lg border-t-8 border-sky-500"
+          >
+            <div class="card-content">
+              <h3 class="font-bold text-xl">🏢 Cost Center</h3>
+              <p class="mt-2 text-gray-600">
+                Là một địa điểm, bộ phận hoặc đơn vị trong tổ chức chịu trách
+                nhiệm quản lý chi phí, thường không trực tiếp tạo ra doanh thu.
+              </p>
+              <p class="mt-3 font-semibold text-gray-800">Ví dụ thực tế:</p>
+              <ul class="mt-1 list-disc list-inside text-gray-700">
+                <li>Phòng IT, Phòng Hành chính - Nhân sự</li>
+                <li>Phân xưởng sản xuất, Phòng Bảo trì</li>
+              </ul>
+              <p class="mt-3 text-gray-600">
+                Khi bạn trả lương cho nhân viên IT hay mua vật tư cho phòng hành
+                chính, chi phí đó được ghi nhận vào
+                <span class="font-bold">Cost Center</span> tương ứng để theo dõi
+                và kiểm soát ngân sách.
+              </p>
+            </div>
+          </div>
+          <div
+            class="card bg-white p-6 rounded-xl shadow-lg border-t-8 border-emerald-500"
+          >
+            <div class="card-content">
+              <h3 class="font-bold text-xl">💰 Profit Center</h3>
+              <p class="mt-2 text-gray-600">
+                Là một đơn vị trong tổ chức chịu trách nhiệm về cả chi phí và
+                doanh thu. Hiệu quả hoạt động được đánh giá dựa trên lợi nhuận
+                hoặc ROI (Return on Investment).
+              </p>
+              <p class="mt-3 font-semibold text-gray-800">Ví dụ thực tế:</p>
+              <ul class="mt-1 list-disc list-inside text-gray-700">
+                <li>Chi nhánh kinh doanh Miền Bắc</li>
+                <li>Ngành hàng "Xe đạp thể thao"</li>
+              </ul>
+              <p class="mt-3 text-gray-600">
+                Hoạt động như một "công ty con" trong lòng doanh nghiệp, cho
+                phép ban lãnh đạo đánh giá hiệu quả tài chính của từng mảng kinh
+                doanh một cách độc lập.
+              </p>
+            </div>
+          </div>
+          <div
+            class="card bg-white p-6 rounded-xl shadow-lg border-t-8 border-amber-500"
+          >
+            <div class="card-content">
+              <h3 class="font-bold text-xl">📅 Internal Order</h3>
+              <p class="mt-2 text-gray-600">
+                Là một công cụ linh hoạt dùng để lập kế hoạch, thu thập và theo
+                dõi chi phí (và cả doanh thu) cho các hoạt động, sự kiện, hoặc
+                dự án cụ thể <mark>có vòng đời ngắn hạn.</mark>
+              </p>
+              <p class="mt-3 font-semibold text-gray-800">Ví dụ thực tế:</p>
+              <ul class="mt-1 list-disc list-inside text-gray-700">
+                <li>Tổ chức một hội nghị khách hàng</li>
+                <li>Chiến dịch marketing cho sản phẩm mới</li>
+              </ul>
+              <p class="mt-3 text-gray-600">
+                Khi tổ chức sự kiện, công ty tạo một
+                <span class="font-bold bg-yellow-200 px-1 rounded"
+                  >Internal Order</span
+                >
+                để <mark>tập hợp tất cả chi phí</mark> liên quan (thuê địa điểm,
+                in ấn, quà tặng...). Cuối kỳ, chi phí này sẽ được quyết toán
+                (settle) về các đối tượng chịu chi phí cuối cùng (ví dụ: Cost
+                Center Marketing).
+              </p>
+            </div>
+          </div>
+          <div
+            class="card bg-white p-6 rounded-xl shadow-lg border-t-8 border-indigo-500"
+          >
+            <div class="card-content">
+              <h3 class="font-bold text-xl">🌉 Cost Element</h3>
+              <p class="mt-2 text-gray-600">
+                Là yếu tố phân loại bản chất của chi phí, trả lời câu hỏi "Chi
+                cho cái gì?". Nó là cầu nối quan trọng giữa kế toán tài chính
+                (FI) và kế toán quản trị (CO).
+              </p>
+              <p class="mt-3 font-semibold text-gray-800">Hai loại chính:</p>
+              <ul class="mt-1 list-disc list-inside text-gray-700">
+                <li>
+                  <strong>Primary:</strong> Chi phí phát sinh từ bên ngoài
+                  (Lương, Tiền thuê, Điện nước). Nó được tạo tự động khi một tài
+                  khoản chi phí (G/L Account) được tạo trong FI.
+                  <span class="bg-yellow-200 px-1 rounded font-semibold"
+                    >(được sinh ra trực tiếp từ input của FI)</span
+                  >
+                </li>
+                <li>
+                  <strong>Secondary:</strong> Chi phí phát sinh từ
+                  <span class="bg-blue-200 px-1 rounded font-semibold"
+                    >bên trong</span
+                  >
+                  (Phân bổ chi phí IT, chi phí canteen). Nó chỉ tồn tại trong
+                  CO, dùng để phân bổ chi phí giữa các Cost Center hoặc Profit
+                  Center.
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div
+            class="card bg-white p-6 rounded-xl shadow-lg border-t-8 border-pink-500"
+          >
+            <div class="card-content">
+              <h3 class="font-bold text-xl">📈 Revenue Element</h3>
+              <p class="mt-2 text-gray-600">
+                Tương tự như
+                <span class="font-bold">Primary Cost Element</span> nhưng dành
+                cho doanh thu. Nó phân loại bản chất của doanh thu, trả lời câu
+                hỏi "Thu từ cái gì?".
+              </p>
+              <p class="mt-3 font-semibold text-gray-800">Ví dụ thực tế:</p>
+              <ul class="mt-1 list-disc list-inside text-gray-700">
+                <li>Doanh thu bán thành phẩm</li>
+                <li>Doanh thu cung cấp dịch vụ</li>
+              </ul>
+              <p class="mt-3 text-gray-600">
+                Khi công ty bán một chiếc xe đạp, doanh thu được ghi nhận vào
+                <span class="font-bold">Revenue Element</span> tương ứng, cho
+                phép phân tích lãi lỗ theo từng
+                <span class="font-bold">Profit Center</span> hoặc sản phẩm.
+              </p>
+            </div>
+          </div>
+          <div
+            class="card bg-white p-6 rounded-xl shadow-lg border-t-8 border-rose-500"
+          >
+            <div class="card-content">
+              <h3 class="font-bold text-xl">
+                📏 Statistical Key Figures (SKF)
+              </h3>
+              <p class="mt-2 text-gray-600">
+                Là tiêu chí, thước đo để phân bổ chi phí.
+              </p>
+              <p class="mt-3 font-semibold text-gray-800">Ví dụ thực tế:</p>
+              <ul class="mt-1 list-disc list-inside text-gray-700">
+                <li>
+                  Số lượng nhân viên (dùng để phân bổ chi phí phòng nhân sự)
+                </li>
+                <li>
+                  Diện tích sử dụng (m²) (dùng để phân bổ tiền thuê văn phòng)
+                </li>
+                <li>Số giờ hỗ trợ IT (dùng để phân bổ chi phí phòng IT)</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="mt-12 bg-white p-6 rounded-xl shadow-lg">
+          <h3 class="text-2xl font-bold text-center mb-4 section-title">
+            Bảng tóm tắt Master Data & Liên hệ thực tế
+          </h3>
+          <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+              <thead class="bg-gray-50">
+                <tr>
+                  <th
+                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
+                    Master Data
+                  </th>
+                  <th
+                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
+                    Mục đích chính
+                  </th>
+                  <th
+                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
+                    Ví dụ thực tế
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="bg-white divide-y divide-gray-200">
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap font-medium">
+                    Cost Center
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    Theo dõi chi phí bộ phận
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    Phòng IT, Bảo trì, Hành chính
+                  </td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap font-medium">
+                    Profit Center
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    Đánh giá lợi nhuận vùng/bộ phận
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    Chi nhánh miền Bắc, ngành hàng xe đạp
+                  </td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap font-medium">
+                    Internal Order
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    Thu thập chi phí ngắn hạn
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    Sự kiện tuyển dụng, chiến dịch quảng cáo
+                  </td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap font-medium">
+                    Primary Cost Element
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    Mapping chi phí từ FI sang CO
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    Lương, thuê nhà, văn phòng phẩm
+                  </td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap font-medium">
+                    Secondary Cost Element
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    Phân bổ chi phí nội bộ CO
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    Chi phí hỗ trợ IT được chia cho các phòng
+                  </td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap font-medium">
+                    Revenue Element
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    Mapping doanh thu từ FI
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    Doanh thu bán xe đạp, doanh thu dịch vụ
+                  </td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap font-medium">
+                    Statistical Key Figure
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    Cung cấp tiêu thức phân bổ
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    Số nhân viên, diện tích văn phòng (m²)
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <hr class="my-20 border-t border-gray-200" />
+
+      <!-- =================================================================== -->
+      <!-- SECTION: PROCESSES (REBUILT WITH DETAILED SCENARIO)               -->
+      <!-- =================================================================== -->
+      <section id="processes" class="scroll-mt-24">
+        <h2 class="text-4xl font-extrabold text-center mb-4 section-title">
+          Dòng chảy Chi phí & Phân bổ
+        </h2>
+        <p class="text-center text-xl section-subtitle max-w-4xl mx-auto mb-12">
+          Phân bổ là nghệ thuật chuyển chi phí từ nơi phát sinh đến đối tượng
+          chịu chi phí cuối cùng. Hãy xem một ví dụ đời thường: chia tiền cho
+          chuyến đi Phan Thiết của 4 người bạn.
+        </p>
+        <div
+          class="bg-white p-6 md:p-8 rounded-xl shadow-xl border border-gray-200"
+        >
+          <div class="mb-8 flex justify-center">
+            <div class="flex space-x-1 rounded-lg bg-gray-200 p-1">
+              <button
+                id="tab-distribution"
+                class="tab-button px-6 py-2 text-base font-medium rounded-md w-40 active"
+              >
+                Distribution
+              </button>
+              <button
+                id="tab-assessment"
+                class="tab-button px-6 py-2 text-base font-medium rounded-md w-40"
+              >
+                Assessment
+              </button>
+            </div>
+          </div>
+          <div
+            class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg mb-8"
+          >
+            <h3 class="font-bold text-lg text-blue-800">
+              Tình huống thực tế: Chuyến đi Phan Thiết
+            </h3>
+            <p class="mt-2 text-gray-700">
+              Một nhóm bạn 4 người (<span class="font-bold"
+                >Hữu An, Phú Khang, Hiểu Phi, Hải Nam</span
+              >) tổ chức đi Phan Thiết. Mọi chi phí ban đầu được một người đứng
+              ra trả và ghi vào "Quỹ chung" (<span class="font-mono font-bold"
+                >CC_TRIP_FUND</span
+              >). Tổng chi phí chuyến đi là
+              <span class="font-bold">12,000,000 VND</span>, bao gồm:
+            </p>
+            <ul class="list-disc list-inside mt-2 ml-4">
+              <li>
+                Tiền xe (Cost Element <span class="font-mono">400100</span>):
+                1,000,000 VND
+              </li>
+              <li>
+                Tiền ăn (Cost Element <span class="font-mono">400200</span>):
+                3,000,000 VND
+              </li>
+              <li>
+                Tiền khách sạn (Cost Element
+                <span class="font-mono">400300</span>): 4,800,000 VND
+              </li>
+              <li>
+                Tiền đi chơi (Cost Element
+                <span class="font-mono">400400</span>): 3,200,000 VND
+              </li>
+            </ul>
+            <p class="mt-2 text-gray-700">
+              Cuối chuyến đi, chi phí này cần được phân bổ lại cho mỗi người
+              (Cost Center: <span class="font-mono font-bold">CC_AN</span>,
+              <span class="font-mono font-bold">CC_KHANG</span>,
+              <span class="font-mono font-bold">CC_PHI</span>,
+              <span class="font-mono font-bold">CC_NAM</span>). Tiêu thức phân
+              bổ chung (SKF) là số người (4 người).
+            </p>
+          </div>
+          <div id="content-distribution">
+            <div class="text-center mb-6">
+              <h3 class="text-2xl font-bold">
+                Phân phối (Distribution) - Chia chi tiết, giữ bản chất
+              </h3>
+              <p class="mt-2 text-gray-600 max-w-3xl mx-auto">
+                Phương pháp này chia lại chi phí một cách chi tiết. Mỗi người sẽ
+                thấy rõ mình đã tiêu bao nhiêu cho từng khoản (tiền ăn, tiền
+                chơi,...). Cách chia này
+                <span class="font-bold text-green-600"
+                  >giữ nguyên Cost Element gốc</span
+                >, phù hợp khi cần sự minh bạch tuyệt đối.
+              </p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8 items-start">
+              <div>
+                <h4 class="font-bold text-lg mb-2">Sơ đồ dòng chảy chi phí</h4>
+                <div class="bg-gray-50 p-4 rounded-lg text-center">
+                  <div class="font-bold">Quỹ chung (Sender)</div>
+                  <div class="text-sm">Tổng: 12,000,000</div>
+                  <div class="my-2 text-2xl">↓</div>
+                  <div class="flex justify-around">
+                    <div class="text-center">
+                      <div class="font-bold">Hữu An</div>
+                      <div class="text-sm">Tổng: 2,950,000</div>
+                    </div>
+                    <div class="text-center">
+                      <div class="font-bold">Phú Khang</div>
+                      <div class="text-sm">Tổng: 3,250,000</div>
+                    </div>
+                    <div class="text-center">
+                      <div class="font-bold">Hiểu Phi</div>
+                      <div class="text-sm">Tổng: 3,150,000</div>
+                    </div>
+                    <div class="text-center">
+                      <div class="font-bold">Hải Nam</div>
+                      <div class="text-sm">Tổng: 2,650,000</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <h4 class="font-bold text-lg mb-2">
+                  Kết quả "sao kê" chi tiết
+                </h4>
+                <p class="text-sm text-gray-600 mb-2">
+                  Báo cáo chi phí của mỗi người sẽ rất chi tiết:
+                </p>
+                <table class="journal-table text-sm">
+                  <thead>
+                    <tr>
+                      <th>Khoản mục</th>
+                      <th class="text-right">Hữu An (VND)</th>
+                      <th class="text-right">Phú Khang (VND)</th>
+                      <th class="text-right">Hiểu Phi (VND)</th>
+                      <th class="text-right">Hải Nam (VND)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Tiền xe</td>
+                      <td class="text-right debit">250,000</td>
+                      <td class="text-right debit">250,000</td>
+                      <td class="text-right debit">250,000</td>
+                      <td class="text-right debit">250,000</td>
+                    </tr>
+                    <tr>
+                      <td>Tiền ăn</td>
+                      <td class="text-right debit">1,000,000</td>
+                      <td class="text-right debit">800,000</td>
+                      <td class="text-right debit">700,000</td>
+                      <td class="text-right debit">500,000</td>
+                    </tr>
+                    <tr>
+                      <td>Tiền khách sạn</td>
+                      <td class="text-right debit">1,200,000</td>
+                      <td class="text-right debit">1,200,000</td>
+                      <td class="text-right debit">1,200,000</td>
+                      <td class="text-right debit">1,200,000</td>
+                    </tr>
+                    <tr>
+                      <td>Tiền đi chơi</td>
+                      <td class="text-right debit">500,000</td>
+                      <td class="text-right debit">1,000,000</td>
+                      <td class="text-right debit">1,000,000</td>
+                      <td class="text-right debit">700,000</td>
+                    </tr>
+                    <tr class="bg-gray-100 font-bold">
+                      <td>Tổng cộng</td>
+                      <td class="text-right debit">2,950,000</td>
+                      <td class="text-right debit">3,250,000</td>
+                      <td class="text-right debit">3,150,000</td>
+                      <td class="text-right debit">2,650,000</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div id="content-assessment" class="hidden">
+            <div class="text-center mb-6">
+              <h3 class="text-2xl font-bold">
+                Đánh giá (Assessment) - Chia đều cho nhanh gọn
+              </h3>
+              <p class="mt-2 text-gray-600 max-w-3xl mx-auto">
+                Phương pháp này gom tất cả chi phí lại và chia đều. Mọi người
+                chỉ cần biết tổng chi phí mỗi người phải chịu là bao nhiêu. Cách
+                chia này sử dụng
+                <span class="font-bold text-blue-600"
+                  >một Secondary Cost Element duy nhất</span
+                >
+                (ví dụ: "Chi phí chung chuyến đi") để tổng hợp.
+              </p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8 items-start">
+              <div>
+                <h4 class="font-bold text-lg mb-2">Sơ đồ dòng chảy chi phí</h4>
+                <div class="bg-gray-50 p-4 rounded-lg text-center">
+                  <div class="font-bold">Quỹ chung (Sender)</div>
+                  <div class="text-sm">Tổng chi phí: 12M</div>
+                  <div class="my-2 text-2xl">
+                    ↓ (Qua Secondary CE <span class="font-mono">900100</span>)
+                  </div>
+                  <div class="flex justify-around">
+                    <div class="text-center">
+                      <div class="font-bold">Mỗi người</div>
+                      <div class="text-sm">CE 900100: 3M</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <h4 class="font-bold text-lg mb-2">
+                  Kết quả "sao kê" tổng hợp
+                </h4>
+                <p class="text-sm text-gray-600 mb-2">
+                  Sao kê của mỗi người sẽ rất gọn gàng:
+                </p>
+                <table class="journal-table text-sm">
+                  <thead>
+                    <tr>
+                      <th>Tên</th>
+                      <th>Khoản chi</th>
+                      <th class="text-right">Chi phí (VND)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Hữu An</td>
+                      <td>900100 (CP chuyến đi)</td>
+                      <td class="text-right debit">3,000,000</td>
+                    </tr>
+                    <tr>
+                      <td>Phú Khang</td>
+                      <td>900100 (CP chuyến đi)</td>
+                      <td class="text-right debit">3,000,000</td>
+                    </tr>
+                    <tr>
+                      <td>Hiểu Phi</td>
+                      <td>900100 (CP chuyến đi)</td>
+                      <td class="text-right debit">3,000,000</td>
+                    </tr>
+                    <tr>
+                      <td>Hải Nam</td>
+                      <td>900100 (CP chuyến đi)</td>
+                      <td class="text-right debit">3,000,000</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="mt-8 pt-6 border-t border-gray-200">
+            <h4 class="text-xl font-semibold text-center mb-4">
+              Mô phỏng: Chia tiền chuyến đi (12,000,000đ)
+            </h4>
+            <div class="chart-container">
+              <canvas id="costAllocationChart"></canvas>
+            </div>
+            <div class="flex justify-center mt-4">
+              <button
+                id="run-allocation-btn"
+                class="bg-[#0A4D68] hover:bg-[#083b52] text-white font-bold py-3 px-8 rounded-lg transition-colors text-lg"
+              >
+                Chạy Phân bổ
+              </button>
+              <button
+                id="reset-allocation-btn"
+                class="ml-4 bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-8 rounded-lg transition-colors text-lg"
+              >
+                Làm mới
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <hr class="my-20 border-t border-gray-200" />
+
+      <!-- =================================================================== -->
+      <!-- SECTION: PRODUCT COSTING (REBUILT WITH IN-DEPTH PROCESS)          -->
+      <!-- =================================================================== -->
+      <section id="product-costing" class="scroll-mt-24">
+        <h2 class="text-4xl font-extrabold text-center mb-4 section-title">
+          Giải mã Giá thành Sản phẩm (Product Costing)
+        </h2>
+        <p class="text-center text-xl section-subtitle max-w-4xl mx-auto mb-12">
+          Đây là trái tim của CO, quy trình theo dõi và tính toán chi phí để sản
+          xuất một sản phẩm. Hãy cùng đi sâu vào dòng đời của một
+          <span class="font-bold">Production Order</span> để thấy chi phí được
+          tích lũy và phân tích như thế nào.
+        </p>
+        <div class="bg-white p-8 rounded-xl shadow-xl">
+          <div class="steps-scroll-container mb-8">
+            <div
+              id="product-costing-steps-container"
+              class="flex items-center justify-start min-w-max px-4"
+            ></div>
+          </div>
+          <div
+            id="step-details"
+            class="bg-sky-50 p-6 rounded-lg min-h-[180px] border-l-4 border-[#0A4D68]"
+          >
+            <h3
+              id="step-title"
+              class="text-2xl font-bold mb-2 text-[#0A4D68]"
+            ></h3>
+            <p id="step-desc" class="text-gray-800"></p>
+            <div id="step-extra-info" class="mt-3 text-sm"></div>
+          </div>
+        </div>
+      </section>
+
+      <hr class="my-20 border-t border-gray-200" />
+
+      <section id="s4hana" class="scroll-mt-24">
+        <h2 class="text-4xl font-extrabold text-center mb-4 section-title">
+          Cách mạng S/4HANA: Nguồn Chân lý Duy nhất
+        </h2>
+        <p class="text-center text-xl section-subtitle max-w-4xl mx-auto mb-12">
+          S/4HANA đã phá vỡ bức tường lịch sử giữa FI và CO bằng
+          <span class="font-bold">Universal Journal (ACDOCA)</span>, tạo ra một
+          sự hài hòa và tốc độ chưa từng có.
+        </p>
+        <div class="grid md:grid-cols-2 gap-8">
+          <div
+            class="bg-white p-6 rounded-xl shadow-lg border-t-8 border-red-500"
+          >
+            <h3 class="text-2xl font-bold text-center mb-4">
+              TRƯỚC ĐÂY: Hai thế giới riêng biệt
+            </h3>
+            <div class="text-center space-y-4">
+              <div
+                class="p-4 border-2 border-dashed border-gray-400 rounded-lg"
+              >
+                <h4 class="font-semibold">Bảng FI (BSEG,...)</h4>
+              </div>
+              <p class="font-bold text-red-500 text-3xl animate-pulse">
+                Đối chiếu thủ công
+              </p>
+              <div
+                class="p-4 border-2 border-dashed border-gray-400 rounded-lg"
+              >
+                <h4 class="font-semibold">Bảng CO (COEP,...)</h4>
+              </div>
+            </div>
+            <p class="mt-6 text-center text-red-700 bg-red-100 p-3 rounded-lg">
+              ❌ Dữ liệu dư thừa, báo cáo có độ trễ, tốn công sức đối chiếu.
+            </p>
+          </div>
+          <div
+            class="bg-white p-6 rounded-xl shadow-lg border-t-8 border-green-500"
+          >
+            <h3 class="text-2xl font-bold text-center mb-4">
+              BÂY GIỜ: Một thực thể hợp nhất
+            </h3>
+            <div
+              class="p-6 border-2 border-green-500 rounded-lg text-center bg-green-50"
+            >
+              <h4 class="font-semibold text-3xl">Universal Journal (ACDOCA)</h4>
+              <p class="mt-4">
+                Một bút toán duy nhất chứa tất cả các chiều thông tin: FI, CO,
+                CO-PA, Asset Accounting...
+              </p>
+            </div>
+            <p
+              class="mt-6 text-center text-green-700 bg-green-100 p-3 rounded-lg"
+            >
+              🚀 Báo cáo real-time, không cần đối chiếu, đơn giản hóa cấu trúc
+              dữ liệu.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="bg-gray-800 text-white mt-16">
+      <div class="container mx-auto py-6 px-4 sm:px-6 lg:px-8 text-center">
+        <p class="font-semibold">Trang web được làm bởi hieuphinehehe</p>
+        <p class="text-sm text-gray-400">Học xong thì nghe tí nhạc nhé hehe!</p>
+        <div class="mt-6 flex flex-col items-center justify-center">
+          <a
+            href="https://youtu.be/IADhKnmQMtk?si=flogW3NAknPVFAUc"
+            target="_blank"
+            rel="noopener"
+            class="inline-block group"
+            title="MV Giữ Anh Cho Ngày Hôm Qua - Hoàng Dũng"
+          >
+            <img
+              src="https://img.youtube.com/vi/IADhKnmQMtk/hqdefault.jpg"
+              alt="MV Giữ Anh Cho Ngày Hôm Qua - Hoàng Dũng"
+              class="rounded-lg shadow-lg w-64 transition-transform group-hover:scale-105 mx-auto"
+            />
+            <div
+              class="mt-2 text-blue-300 font-semibold underline group-hover:text-yellow-300"
+            >
+              Xem MV "Giữ Anh Cho Ngày Hôm Qua" - Hoàng Dũng
+            </div>
+          </a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- JavaScript Files -->
+    <script type="module" src="js/app.js"></script>
+  </body>
+</html>
