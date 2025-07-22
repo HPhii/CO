@@ -25,12 +25,12 @@ export class ProductCosting {
       {
         id: 1,
         title: "Cost Estimate",
-        desc: "Ước tính giá thành",
+        desc: "Ước tính giá thành Kế hoạch",
         tcode: "CK11N/CK40N",
         detail:
           "Trước khi sản xuất, hệ thống tính toán chi phí kế hoạch (Standard Cost) cho sản phẩm dựa trên BOM (Bill of Materials) và Routing. Kết quả này là thước đo để so sánh với chi phí thực tế sau này.",
         impact:
-          "Chưa có bút toán FI/CO. Kết quả được lưu dưới dạng một Cost Estimate.",
+          "Chưa có bút toán FI/CO. Kết quả được lưu dưới dạng một Cost Estimate, sau khi release sẽ cập nhật vào Standard Price của vật tư.",
       },
       {
         id: 2,
@@ -38,19 +38,19 @@ export class ProductCosting {
         desc: "Tạo Lệnh Sản xuất",
         tcode: "CO01",
         detail:
-          "Một Production Order được tạo ra để yêu cầu sản xuất một số lượng sản phẩm cụ thể. Lệnh này sao chép thông tin từ BOM và Routing, trở thành đối tượng chính để tập hợp chi phí.",
+          "Một Production Order được tạo ra để yêu cầu sản xuất một số lượng sản phẩm cụ thể. Lệnh này sao chép thông tin từ BOM và Routing, trở thành đối tượng chính để tập hợp chi phí thực tế.",
         impact:
           "Chưa có bút toán FI/CO. Lệnh sản xuất ở trạng thái CRTD (Created).",
       },
       {
         id: 3,
         title: "Goods Issue",
-        desc: "Xuất kho NVL",
-        tcode: "MIGO",
+        desc: "Xuất kho NVL cho Lệnh",
+        tcode: "MIGO/MB1A",
         detail:
-          "Kho xuất nguyên vật liệu (NVL) cần thiết cho lệnh sản xuất. Đây là chi phí thực tế đầu tiên được ghi nhận vào lệnh.",
+          "Kho xuất nguyên vật liệu (NVL) cần thiết cho lệnh sản xuất. Đây là chi phí thực tế đầu tiên được ghi nhận vào lệnh, dựa trên số lượng thực tế và giá NVL.",
         impact:
-          "Ghi Nợ tài khoản chi phí sản xuất (gắn với Lệnh SX), ghi Có tài khoản tồn kho NVL.",
+          "Ghi Nợ tài khoản chi phí NVL (gắn với Lệnh SX), ghi Có tài khoản tồn kho NVL. Chi phí được cập nhật vào Lệnh sản xuất.",
       },
       {
         id: 4,
@@ -58,17 +58,17 @@ export class ProductCosting {
         desc: "Xác nhận Hoạt động",
         tcode: "CO11N",
         detail:
-          "Công nhân xác nhận số giờ lao động, số giờ máy đã sử dụng. Hệ thống sẽ phân bổ chi phí nhân công và máy móc vào lệnh sản xuất dựa trên đơn giá hoạt động (Activity Rate) đã định sẵn.",
+          "Công nhân xác nhận số giờ lao động, số giờ máy đã sử dụng. Hệ thống phân bổ chi phí hoạt động vào lệnh sản xuất dựa trên số lượng thực tế và Activity Rate đã tính ở bước kế hoạch.",
         impact:
-          "Ghi Nợ chi phí vào Lệnh SX, ghi Có cho Cost Center cung cấp hoạt động (ví dụ: Cost Center của phân xưởng).",
+          "Ghi Nợ chi phí vào Lệnh SX, ghi Có cho Cost Center cung cấp hoạt động (ví dụ: Cost Center của phân xưởng sản xuất).",
       },
       {
         id: 5,
         title: "Overhead",
-        desc: "Tính Chi phí chung",
-        tcode: "KGI2",
+        desc: "Phân bổ Chi phí chung",
+        tcode: "KGI2/CO43",
         detail:
-          "Cuối kỳ, các chi phí gián tiếp (chi phí quản lý phân xưởng,...) được phân bổ vào lệnh sản xuất thông qua một công thức được định nghĩa trong Costing Sheet.",
+          "Cuối kỳ, các chi phí gián tiếp (chi phí quản lý phân xưởng,...) được phân bổ vào lệnh sản xuất thông qua một công thức trong Costing Sheet.",
         impact:
           "Ghi Nợ chi phí vào Lệnh SX, ghi Có cho một đối tượng bù trừ (ví dụ: Internal Order hoặc Cost Center).",
       },
@@ -76,39 +76,39 @@ export class ProductCosting {
         id: 6,
         title: "Goods Receipt",
         desc: "Nhập kho Thành phẩm",
-        tcode: "MIGO",
+        tcode: "MIGO/MB31",
         detail:
-          "Thành phẩm hoàn thành được nhập kho. Lệnh sản xuất được ghi giảm một khoản tương ứng với giá trị thành phẩm nhập kho (thường theo giá Standard Cost).",
+          "Thành phẩm hoàn thành được nhập kho. Lệnh sản xuất được ghi Có (Credit) một khoản đúng bằng giá trị thành phẩm nhập kho (tính theo giá Standard Cost đã tính ở bước 1).",
         impact:
-          "Ghi Nợ tài khoản tồn kho thành phẩm, ghi Có tài khoản bù trừ chi phí sản xuất (gắn với Lệnh SX).",
+          "Ghi Nợ tài khoản tồn kho thành phẩm, ghi Có cho Lệnh sản xuất.",
       },
       {
         id: 7,
         title: "WIP Calc.",
         desc: "Tính Dở dang (WIP)",
-        tcode: "KKAX",
+        tcode: "KKAX/KKAO",
         detail:
-          "Đối với các lệnh chưa hoàn thành vào cuối kỳ, hệ thống tính toán giá trị sản phẩm dở dang (Work In Progress - WIP) dựa trên chi phí đã phát sinh.",
+          "Đối với các lệnh chưa hoàn thành vào cuối kỳ, hệ thống tính toán giá trị sản phẩm dở dang (Work In Progress - WIP). WIP = Tổng Nợ (chi phí đã vào) - Tổng Có (thành phẩm đã nhập).",
         impact:
-          "Ghi Nợ tài khoản WIP trên bảng cân đối kế toán, ghi Có tài khoản bù trừ WIP trên báo cáo kết quả kinh doanh.",
+          "Ghi Nợ tài khoản WIP trên bảng cân đối kế toán, ghi Có tài khoản bù trừ WIP trên P&L.",
       },
       {
         id: 8,
         title: "Variance Calc.",
-        desc: "Tính Chênh lệch",
-        tcode: "KKS2",
+        desc: "Tính Chênh lệch (Variance)",
+        tcode: "KKS2/KKS1",
         detail:
           "Đối với các lệnh đã hoàn thành, hệ thống so sánh tổng chi phí thực tế đã ghi nhận vào lệnh với chi phí kế hoạch (Standard Cost) của lượng thành phẩm đã sản xuất để tính ra chênh lệch (Variance).",
         impact:
-          "Chưa có bút toán. Kết quả được lưu trên lệnh sản xuất để chuẩn bị cho bước quyết toán.",
+          "Chưa có bút toán. Kết quả chênh lệch được lưu trên lệnh sản xuất để chuẩn bị cho bước quyết toán.",
       },
       {
         id: 9,
         title: "Settlement",
         desc: "Quyết toán Lệnh",
-        tcode: "KO88",
+        tcode: "KO88/CO88",
         detail:
-          "Đây là bước cuối cùng. Toàn bộ chênh lệch (Variance) hoặc giá trị WIP được quyết toán (settle) từ Lệnh sản xuất đến các đối tượng nhận cuối cùng (ví dụ: CO-PA để phân tích lãi lỗ, hoặc FI).",
+          "Đây là bước cuối cùng. Toàn bộ chênh lệch (Variance) hoặc giá trị WIP được quyết toán (settle) từ Lệnh sản xuất đến các đối tượng nhận cuối cùng (ví dụ: FI, CO-PA).",
         impact:
           "Ghi Nợ/Có cho Lệnh SX để số dư về 0. Ghi Nợ/Có cho các đối tượng nhận (tài khoản chênh lệch giá, tài khoản giá vốn,...).",
       },
